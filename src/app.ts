@@ -3,8 +3,51 @@ import type { NextFunction, Request, Response } from "express";
 import express from "express";
 import helmet from "helmet";
 import type { AddressInfo } from "net";
+import { z, type ZodError } from "zod";
 
 const apiPort = process.env.API_PORT || 3000;
+
+const DISPLAY_ORDER_VALUES = [
+    "alphabetically_ascending",
+    "alphabetically_descending",
+    "predefined",
+    "natural_number_ascending",
+    "natural_number_descending",
+] as const;
+
+const Schema = z
+    .object({
+        choices: z
+            .array(z.string())
+            .min(1, { message: "Provide at least one choice." }),
+        default: z
+            .string()
+            .min(1, { message: "Default choice cannot be empty." }),
+        displayOrder: z.enum(DISPLAY_ORDER_VALUES, {
+            message: "Invalid display order selected.",
+        }),
+        label: z
+            .string()
+            .min(2, { message: "Label must be at least 2 characters long." })
+            .min(1, { message: "Label cannot be empty." }),
+        multiselect: z.boolean({
+            message: "Multiselect must be a boolean value.",
+        }),
+        required: z.boolean({ message: "Required must be a boolean value." }),
+    })
+    .refine(
+        (data) => {
+            const uniqueValues = new Set([...data.choices, ...data.default]);
+            return uniqueValues.size <= 5;
+        },
+        {
+            message:
+                "Choices and default must form a set of unique values with up to 5 elements.",
+            path: ["choices", "default"],
+        },
+    );
+
+type Data = z.infer<typeof Schema>;
 
 class HttpError extends Error {
     constructor(
@@ -38,6 +81,35 @@ app.get("/api/health", (_req, res) => {
     res.json({
         message: "Server is up and running...",
     });
+});
+
+app.post("/api/builder", (req, res, next) => {
+    let data: Data = {} as Data;
+
+    try {
+        data = Schema.parse(req.body);
+    } catch (error) {
+        next(
+            new HttpError(
+                JSON.parse((error as ZodError).message)[0].message,
+                422,
+            ),
+        );
+    }
+
+    const resData: Data = {
+        ...data,
+        choices: [
+            ...new Set(
+                [...data.choices, data.default]
+                    .map((it) => it.trim())
+                    .filter(Boolean),
+            ),
+        ],
+        default: data.default.trim(),
+    };
+
+    res.json(resData);
 });
 
 app.use(() => {
