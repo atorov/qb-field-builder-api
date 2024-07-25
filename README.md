@@ -12,7 +12,7 @@ This is a Node.js/Express application for building and validating form configura
 ## Live Demo
 
 The API is deployed on Railway.app and is publicly accessible at:
-**[<api_url>](https://qb-field-builder-api-production.up.railway.app/api/health)**
+**<https://qb-field-builder-api-production.up.railway.app/api/>**
 
 -   GET <https://qb-field-builder-api-production.up.railway.app/api/health>
 -   POST <https://qb-field-builder-api-production.up.railway.app/api/builder>
