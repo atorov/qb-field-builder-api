@@ -88,27 +88,27 @@ npm run build
 
 **Request Body**:
 
-```json
+```typescript
 {
-    "choices": ["string"],
-    "default": "string",
-    "displayOrder": "alphabetically_ascending | alphabetically_descending | predefined | natural_number_ascending | natural_number_descending",
-    "label": "string",
-    "multiselect": true,
-    "required": true
+    "choices": string[];
+    "default": string;
+    "displayOrder": "alphabetically_ascending | alphabetically_descending | predefined | natural_number_ascending | natural_number_descending";
+    "label": string;
+    "multiselect": boolean;
+    "required": boolea;
 }
 ```
 
 **Response**:
 
-```json
+```typescript
 {
-    "choices": ["string"],
-    "default": "string",
-    "displayOrder": "alphabetically_ascending | alphabetically_descending | predefined | natural_number_ascending | natural_number_descending",
-    "label": "string",
-    "multiselect": true,
-    "required": true
+    "choices": string[];
+    "default": string;
+    "displayOrder": "alphabetically_ascending | alphabetically_descending | predefined | natural_number_ascending | natural_number_descending";
+    "label": string;
+    "multiselect": boolean;
+    "required": boolean;
 }
 ```
 
@@ -126,7 +126,7 @@ npm run build
 
     ```json
     {
-        "message": "Error message detailing the validation issue"
+        "message": "<Error message detailing the validation issue>"
     }
     ```
 
@@ -166,7 +166,3 @@ The `/api/builder` endpoint is the core of this application. It takes a JSON pay
 -   **tsx**: TypeScript execution engine.
 -   **eslint**: Pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript.
 -   **prettier**: An opinionated code formatter.
-
-```
-
-```
