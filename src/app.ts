@@ -5,7 +5,7 @@ import helmet from "helmet";
 import type { AddressInfo } from "net";
 import { z, type ZodError } from "zod";
 
-const apiPort = process.env.API_PORT || 3000;
+const apiPort = process.env.PORT || 3000;
 
 const DISPLAY_ORDER_VALUES = [
     "alphabetically_ascending",
