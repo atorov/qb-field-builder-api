@@ -35,7 +35,7 @@ const Schema = z
     })
     .refine(
         (data) => {
-            const uniqueValues = new Set([...data.choices, ...data.default]);
+            const uniqueValues = new Set([...data.choices, data.default]);
             return uniqueValues.size <= 5;
         },
         {
