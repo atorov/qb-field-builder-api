@@ -64,16 +64,15 @@ app.use(helmet());
 app.use(compression());
 app.use(express.json());
 
-app.use((_req, res, next) => {
+app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Request-With, Content-Type, Accept, Authorization",
-    );
-    res.setHeader(
-        "Access-Control-Allow-Methods",
-        "GET, POST, PUT, PATCH, DELETE",
-    );
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "*");
+
+    if (req.method === "OPTIONS") {
+        return res.sendStatus(200);
+    }
+
     next();
 });
 
