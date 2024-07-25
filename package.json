@@ -5,9 +5,9 @@
     "scripts": {
         "prebuild": "rm -rf ./dist",
         "build": "tsc",
-        "dev": "tsx watch --env-file=.env ./src/app.ts",
+        "dev": "tsx watch ./src/app.ts",
         "prestart": "npm run build",
-        "start": "node --env-file=.env ./dist/app.js"
+        "start": "node ./dist/app.js"
     },
     "author": "atorov",
     "type": "module",
