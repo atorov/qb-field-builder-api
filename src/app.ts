@@ -102,7 +102,7 @@ app.post("/api/builder", (req, res, next) => {
         choices: [
             ...new Set(
                 [...data.choices, data.default]
-                    .map((it) => it.trim())
+                    .map((it) => it.trim().slice(0, 40))
                     .filter(Boolean),
             ),
         ],
