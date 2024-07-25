@@ -20,9 +20,7 @@ const Schema = z
         choices: z
             .array(z.string())
             .min(1, { message: "Provide at least one choice." }),
-        default: z
-            .string()
-            .min(1, { message: "Default choice cannot be empty." }),
+        default: z.string(),
         displayOrder: z.enum(DISPLAY_ORDER_VALUES, {
             message: "Invalid display order selected.",
         }),

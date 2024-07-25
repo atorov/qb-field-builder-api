@@ -143,7 +143,7 @@ npm run build
 The `/api/builder` endpoint is the core of this application. It takes a JSON payload containing form configuration details, validates the data against a predefined schema using Zod, and processes it. The endpoint ensures:
 
 -   **Choices Validation**: The `choices` array must contain at least one string.
--   **Default Choice Validation**: The `default` string must be non-empty and unique within the `choices` array.
+-   **Default Choice Validation**: The `default` string.
 -   **Display Order**: The `displayOrder` value must be one of the specified enum values.
 -   **Label Validation**: The `label` string must be at least 2 characters long.
 -   **Multiselect and Required**: Both must be boolean values.
