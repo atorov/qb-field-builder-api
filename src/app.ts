@@ -103,7 +103,8 @@ app.post("/api/builder", (req, res, next) => {
                     .filter(Boolean),
             ),
         ],
-        default: data.default.trim(),
+        default: data.default.trim().slice(0, 40),
+        label: data.label.trim().slice(0, 40),
     };
 
     res.json(resData);
